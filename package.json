@@ -1,5 +1,5 @@
 {
-  "name": "qm-hub-relay-na",
+  "name": "qm-relay-na",
   "version": "1.0.1",
   "description": "relay na mdoule - NodeRed",
   "main": "relay.js",
