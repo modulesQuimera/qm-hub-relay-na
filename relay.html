@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('relay', {
         category: 'relay',
-        color: '#F3B567',
+        color: '#808080',
         defaults: {
             name:{
                 value: ""
@@ -25,28 +25,45 @@
         },
         inputs: 1,
         outputs: 1,
-        icon: "./icons/Single_Relay_NA.svg",
-        label: function() { return this.name || "Single Relay NA"},
+        icon: "Relay.svg",
+        label: function() { return this.name? "Single Relay NA - "+ this.name : "Single Relay NA"},
         paletteLabel: "Single Relay NA",
 
         oneditprepare: function() {
             var ports = []
             var self = this
+            var config_mapeamento = RED.nodes.node(this.mapeamento)
+            // console.log(config_mapeamento)
+            if(config_mapeamento){
+                ports = [
+                    { value: config_mapeamento.valuePort1, label: "NA1 | CM1 - " + config_mapeamento.labelPort1, hasValue: false },
+                    { value: config_mapeamento.valuePort2, label: "NA2 | CM2 - " + config_mapeamento.labelPort2, hasValue: false },
+                    { value: config_mapeamento.valuePort3, label: "NA3 | CM3 - " + config_mapeamento.labelPort3, hasValue: false },
+                    { value: config_mapeamento.valuePort4, label: "NA4 | CM4 - " + config_mapeamento.labelPort4, hasValue: false },
+                    { value: config_mapeamento.valuePort5, label: "NA5 | CM5 - " + config_mapeamento.labelPort5, hasValue: false },
+                    { value: config_mapeamento.valuePort6, label: "NA6 | CM6 - " + config_mapeamento.labelPort6, hasValue: false },
+                    { value: config_mapeamento.valuePort7, label: "NA7 | CM7 - " + config_mapeamento.labelPort7, hasValue: false },
+                    { value: config_mapeamento.valuePort8, label: "NA8 | CM8 - " + config_mapeamento.labelPort8, hasValue: false },
+                ];
+            }
+            else{
+                ports = [
+                    { label: "NA1 | CM1", value: "0", hasValue: false },
+                    { label: "NA2 | CM2", value: "1", hasValue: false },
+                    { label: "NA3 | CM3", value: "2", hasValue: false },
+                    { label: "NA4 | CM4", value: "3", hasValue: false },
+                    { label: "NA5 | CM5", value: "5", hasValue: false },
+                    { label: "NA6 | CM6", value: "6", hasValue: false },
+                    { label: "NA7 | CM7", value: "7", hasValue: false },
+                    { label: "NA8 | CM8", value: "8", hasValue: false },
+                ];
+            }
+            $("#node-config-input-port").typedInput({
+                default: self.relay_number,
+                types: ports
+            });
 
-            $.getJSON('statusNA', function(data) {
-                ports = data
-                var portType = "custom";
-                for (var i in ports) {
-                    if (self.relay_number == ports[i].value) {
-                        portType = self.relay_number;
-                    }
-                }
-                $("#node-config-input-port").typedInput({
-                    default: self.relay_number,
-                    types: ports
-                });
-            })
-            $("#node-input-mapeamento").val($("#node-input-mapeamento option:first").val());
+
         },
         oneditresize: function() {
             if(!$("#red-ui-header-button-deploy").hasClass("disabled")){
@@ -124,13 +141,15 @@
     <div class="form-row columm">
         <label for="node-input-relay_number"><i class="fa fa-list-ul"></i> relay number</label>
         <input type="text" id="node-config-input-port" style="width:42%">
-        <div style="width:25px; margin-left: 212px; margin-top:-34px" selected>
+        <!-- <div style="width:25px; margin-left: 212px; margin-top:-34px" selected>
             <input type="text" id="node-input-mapeamento" placeholder="mapeamento">
-        </div>
+        </div> -->
     </div>
-
+    <div class="form-row">
+        <label for="node-input-mapeamento"><i class="fa fa-map"></i> Mapping</label>
+        <input type="text" id="node-input-mapeamento">
+    </div>
     <div class="form-row columm" style="margin-top: 20px;">
-
         <label for="node-input-relay_na_value"><i class="fa fa-random"></i> relay_value</label>
         <select id="node-input-relay_na_value" style="width: 20%">
         <option value="true">Open</option>
@@ -159,5 +178,5 @@
 </script>
 
 <script type="text/html" data-help-name="relay">
-    <p>teste relay </p>
+    <p>The default staate is open</p>
 </script>
