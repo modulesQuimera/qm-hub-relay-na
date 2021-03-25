@@ -4,7 +4,7 @@
         color: '#808080',
         defaults: {
             name:{value: ""},
-            mapeamento: {type: "mapping_set_status_na",value: ""},
+            mapeamento: {type: "relay-mapping",value: ""},
             relay_number: {value: ""},
             relay_na_value: {value: ""},
 
@@ -56,41 +56,40 @@
                 self.controle = self.controle+1 <= 24 ? self.controle + 1 : 24;
 
                 $(".relayNA"+self.controle).show();
-                console.log(self.controle);
+                
             });
             $("#remRelayNA").click(function(){
                 $(".relayNA"+self.controle).hide();
                 self.controle = self.controle-1 >= 0 ? self.controle - 1 : 0;
-                console.log(self.controle);
+                
             });
 
 
 
             var ports = []
             var config_mapeamento = RED.nodes.node(this.mapeamento)
-            // console.log(config_mapeamento)
             if(config_mapeamento){
                 ports = [
-                    { value: config_mapeamento.valuePort1, label: "NA1 | CM1 - " + config_mapeamento.labelPort1, hasValue: false },
-                    { value: config_mapeamento.valuePort2, label: "NA2 | CM2 - " + config_mapeamento.labelPort2, hasValue: false },
-                    { value: config_mapeamento.valuePort3, label: "NA3 | CM3 - " + config_mapeamento.labelPort3, hasValue: false },
-                    { value: config_mapeamento.valuePort4, label: "NA4 | CM4 - " + config_mapeamento.labelPort4, hasValue: false },
-                    { value: config_mapeamento.valuePort5, label: "NA5 | CM5 - " + config_mapeamento.labelPort5, hasValue: false },
-                    { value: config_mapeamento.valuePort6, label: "NA6 | CM6 - " + config_mapeamento.labelPort6, hasValue: false },
-                    { value: config_mapeamento.valuePort7, label: "NA7 | CM7 - " + config_mapeamento.labelPort7, hasValue: false },
-                    { value: config_mapeamento.valuePort8, label: "NA8 | CM8 - " + config_mapeamento.labelPort8, hasValue: false },
+                    { value: config_mapeamento.valueNA1, label: `NA1 - PIN 34 (${config_mapeamento.NA1}) | CM1 - PIN 33 (${config_mapeamento.CM1})`, hasValue: false },
+                    { value: config_mapeamento.valueNA2, label: `NA2 - PIN 32 (${config_mapeamento.NA2}) | CM2 - PIN 31 (${config_mapeamento.CM2})`, hasValue: false },
+                    { value: config_mapeamento.valueNA3, label: `NA3 - PIN 30 (${config_mapeamento.NA3}) | CM3 - PIN 29 (${config_mapeamento.CM3})`, hasValue: false },
+                    { value: config_mapeamento.valueNA4, label: `NA4 - PIN 28 (${config_mapeamento.NA4}) | CM4 - PIN 27 (${config_mapeamento.CM4})`, hasValue: false },
+                    { value: config_mapeamento.valueNA5, label: `NA5 - PIN 26 (${config_mapeamento.NA5}) | CM5 - PIN 25 (${config_mapeamento.CM5})`, hasValue: false },
+                    { value: config_mapeamento.valueNA6, label: `NA6 - PIN 24 (${config_mapeamento.NA6}) | CM6 - PIN 23 (${config_mapeamento.CM6})`, hasValue: false },
+                    { value: config_mapeamento.valueNA7, label: `NA7 - PIN 22 (${config_mapeamento.NA7}) | CM7 - PIN 21 (${config_mapeamento.CM7})`, hasValue: false },
+                    { value: config_mapeamento.valueNA8, label: `NA8 - PIN 20 (${config_mapeamento.NA8}) | CM8 - PIN 19 (${config_mapeamento.CM8})`, hasValue: false },
                 ];
             }
             else{
                 ports = [
-                    { label: "NA1 | CM1", value: "0", hasValue: false },
-                    { label: "NA2 | CM2", value: "1", hasValue: false },
-                    { label: "NA3 | CM3", value: "2", hasValue: false },
-                    { label: "NA4 | CM4", value: "3", hasValue: false },
-                    { label: "NA5 | CM5", value: "5", hasValue: false },
-                    { label: "NA6 | CM6", value: "6", hasValue: false },
-                    { label: "NA7 | CM7", value: "7", hasValue: false },
-                    { label: "NA8 | CM8", value: "8", hasValue: false },
+                    { label: "NA1 - PIN 34 | CM1 - PIN 33", value: "0", hasValue: false },
+                    { label: "NA2 - PIN 32 | CM2 - PIN 31", value: "1", hasValue: false },
+                    { label: "NA3 - PIN 30 | CM3 - PIN 29", value: "2", hasValue: false },
+                    { label: "NA4 - PIN 28 | CM4 - PIN 27", value: "3", hasValue: false },
+                    { label: "NA5 - PIN 26 | CM5 - PIN 25", value: "4", hasValue: false },
+                    { label: "NA6 - PIN 24 | CM6 - PIN 23", value: "5", hasValue: false },
+                    { label: "NA7 - PIN 22 | CM7 - PIN 21", value: "6", hasValue: false },
+                    { label: "NA8 - PIN 20 | CM8 - PIN 19", value: "7", hasValue: false },
                 ];
             }
             $("#node-config-input-port").typedInput({
@@ -920,16 +919,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="hr-div-relayNa">
-        <hr>
-            <span class="optional">Optional</span>
-        <hr>
-    </div> -->
-    <!-- <div class="form-row columm">
-        <label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Component Nickname</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div> -->
 </script>
 
 <script type="text/html" data-help-name="relay">

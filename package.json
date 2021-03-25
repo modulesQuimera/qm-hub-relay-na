@@ -1,6 +1,6 @@
 {
   "name": "qm-relay-na",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "relay na mdoule - NodeRed",
   "main": "relay.js",
   "scripts": {
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/modulesQuimera/qm-hub-relay-na.git"
+    "url": "git+https://github.com/modulesQuimera/qm-relay-na.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/modulesQuimera/qm-hub-relay-na/issues"
+    "url": "https://github.com/modulesQuimera/qm-relay-na/issues"
   },
-  "homepage": "https://github.com/modulesQuimera/qm-hub-relay-na#readme",
+  "homepage": "https://github.com/modulesQuimera/qm-relay-na#readme",
   "node-red": {
     "nodes": {
       "modulo": "relay.js"

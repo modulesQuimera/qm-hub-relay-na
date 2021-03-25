@@ -11,7 +11,7 @@ module.exports = function(RED) {
                 compare: {},
                 method: "set_status_NA",
                 relay_number: parseInt(self.relay_number_n[t]),
-                relay_value: self.relay_na_value_n[t] ==="true" ? true : false,
+                relay_value: self.relay_na_value_n[t] ==="true" ? false : true, //logica invertida por conta do hardware
                 get_output: {},
             };
             if(!(slot === "begin" || slot === "end")){
@@ -81,7 +81,7 @@ module.exports = function(RED) {
                 compare: {},
                 method: "set_status_NA",
                 relay_number: parseInt(node.relay_number),
-                relay_value: relay_na_value ==="true" ? true : false,
+                relay_value: relay_na_value ==="true" ? false : true, //logica invertida por conta do hardware
                 get_output: {},
             };
             var file = globalContext.get("exportFile");
@@ -107,7 +107,7 @@ module.exports = function(RED) {
                 }
             }
             globalContext.set("exportFile", file);
-            console.log(command);
+            
             send(msg);
         });
     }
